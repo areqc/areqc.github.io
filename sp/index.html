@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>苔米</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1280784686'%3E%3C/span%3E%3Cscript src='https://v1.cnzz.com/z_stat.php%3Fid%3D1280784686%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1280784686'%3E%3C/span%3E%3Cscript src='https://v1.cnzz.com/z_stat.php%3Fid%3D1280784686%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+  <script>
+
+    // 自执行匿名函数
+(function(window, document, undefined) { // 传入window，document对象
+    var hearts = []; // 定义全局变量hearts，值为空数组
+
+    // 定义不同浏览器下的requestAnimationFrame函数实现，如果都没有，则用setTimeout实现
+    window.requestAnimationFrame = (function() {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function(callback) {
+                setTimeout(callback, 1000 / 60);
+            }
+    })();
+
+    init(); // 执行初始化函数
+
+    // 定义初始化函数
+    function init() {
+        css(".heart{z-index:100000000;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}"); // 定义要生成的爱心的样式
+        attachEvent(); // 添加点击事件（爱心生成）
+        gameloop(); // 开始循环移除爱心（内含递归）
+    }
+
+    // 定义循环函数移除生成的爱心
+    function gameloop() {
+        for(var i = 0; i < hearts.length; i++) { // 循环hearts数组
+            if(hearts[i].alpha <= 0) { // 如果当前循环的heart对象的透明度为0或小于0
+                document.body.removeChild(hearts[i].el); // 从body对象中移除当前循环的heart对象（通过指针）
+                hearts.splice(i, 1); // 从heart数组中移除当前循环的heart对象（通过下标）
+                continue; // 跳过当前循环，进入下一个循环
+            }
+            hearts[i].y--; // y轴自减1
+            hearts[i].scale += 0.004; // 缩放增加0.004
+            hearts[i].alpha -= 0.013; // 透明度减少0.013
+            hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+        }
+        requestAnimationFrame(gameloop); // 定时器定时执行，递归
+    }
+
+    // 定义点击事件函数
+    function attachEvent() {
+        var old = typeof window.onclick === "function" && window.onclick;
+        window.onclick = function(event) {
+            old && old();
+            createHeart(event);
+        }
+    }
+
+    // 定义创建爱心函数
+    function createHeart(event) {
+        var d = document.createElement("div"); // 创建一个div对象并赋值给变量d
+        d.className = "heart"; // 给div对象添加类名
+        hearts.push({ // 给hearts数组添加heart对象
+            el: d, // div对象
+            x: event.clientX - 5, // 鼠标当前位置x轴 - 5
+            y: event.clientY - 5, // 鼠标当前位置y轴 - 5
+            scale: 1, // 缩放
+            alpha: 1, // 透明度
+            color: randomColor() // 颜色（随机颜色）
+        });
+        document.body.appendChild(d); // 添加创建的div对象到body对象
+    }
+
+    // 定义生成样式函数
+    function css(css) {
+        var style = document.createElement("style"); // 创建一个style对象并赋值给变量style
+        style.type = "text/css"; // 给style对象添加属性并赋属性值
+        try {
+            style.appendChild(document.createTextNode(css));
+        } catch(ex) {
+            style.styleSheet.cssText = css;
+        }
+        document.getElementsByTagName('head')[0].appendChild(style); // 添加创建的style对象到head对象
+    }
+
+    // 定义生成随机颜色函数
+    function randomColor() {
+        return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+    }
+})(window, document);
+  </script>
+  <link href="css/stylee.css" type="text/css" rel="stylesheet">
+   <script type="text/javascript">eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('b a(){0 6=1.2("9").4;0 5=1.2("3");0 3=1.2("3").c;0 8=5.e[3].4;0 7=1.2("f");7.d=8+6}',16,16,'var|document|getElementById|jk|value|jkurl|diz|cljurl|jkv|url|dihejk|function|selectedIndex|src|options|player'.split('|'),0,{}))
+
+   function dihejk2() {
+       var diz = document.getElementById("url").value;
+       var jkurl = document.getElementById("jk");
+       var jk = document.getElementById("jk").selectedIndex;
+       var jkv = jkurl.options[jk].value;
+       var cljurl = document.getElementById("player");
+       window.open(jkv + diz,"_blank");
+   }
+
+   </script>
+   </head>
+<body>
+  
+  <div class="col-xs-12 col-sm-10 col-md-8 col-lg-7 center-block" style="float: none;">
+  <h2 class="text-muted" align="center">苔米</h2><h4><div class="footer">
+    <center>系统已运行:<span id="run_time" style="color:black"></span></center>
+            <script>
+                function runTime() {
+                    var d = new Date(), str = '';
+                    BirthDay = new Date("April 2,2021");
+                    today = new Date();
+                    timeold = (today.getTime() - BirthDay.getTime());
+                    sectimeold = timeold / 1000
+                    secondsold = Math.floor(sectimeold);
+                    msPerDay = 24 * 60 * 60 * 1000
+                    msPerYear = 365 * 24 * 60 * 60 * 1000
+                    e_daysold = timeold / msPerDay
+                    e_yearsold = timeold / msPerYear
+                    daysold = Math.floor(e_daysold);
+                    yearsold = Math.floor(e_yearsold);
+                    //str = yearsold + "年";
+                    str += daysold + "天";
+                    str += d.getHours() + '时';
+                    str += d.getMinutes() + '分';
+                    str += d.getSeconds() + '秒';
+                    return str;
+                }
+                setInterval(function () { $('#run_time').html(runTime()) }, 1000);
+            </script>
+</div></h4>
+        </section>
+    </section>
+</section>
+	<div class="col-md-14 column">
+    <div class="panel panel-default">
+     <div id="kj" class="panel-body" >
+     <iframe src="" style="background-color: black;" id="player"width="100%"height="600px"allowTransparency="true"allowfullscreen="true"frameborder="0"scrolling="no"></iframe>	 
+     </div>
+    </div>
+<script>
+    if(navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){
+        document.getElementById("sdfdf").style.display = "block";
+    }
+</script>
+   </div><div class="col-md-14 column">  
+    <form method="get" id="1233911832"></form>
+     <div class="input-group" style="width: 100%;">
+      <span class="input-group-addon input-lg" style="width: 80px; ">选择接口</span>
+      <select class="form-control input-lg" id="jk">
+<option value="//www.administrator5.com/admin.php?url=" selected="">备用系统</option>
+	  <option value="https://okjx.cc/?url=" selected="">蓝光系统</option>
+	  <option value="https://vip.parwix.com:4433/player/?url=" selected="">稳定系统</option>
+     </div>
+     <br>
+     
+     <div class="input-group" style="width: 100%;">
+      <span class="input-group-addon input-lg" style="width: 80px;">播放地址</span>
+      <input class="form-control input-lg" type="search" placeholder="电脑使用Ctrl+V粘贴网址-手机直接长按粘贴网址" id="url">
+     </div>
+     <br>
+     <div>
+      <button id="bf" type="button" class="btn btn-success btn-lg btn-block" onClick="dihejk()">Go-点击开始运行</button>
+      <button id="bf" type="button" class="btn btn-success btn-lg btn-block" onClick="dihejk2()">New-点击全屏运行</button>
+     </div>  
+   </div>
+     <div class="unit-100">
+    <div class="language">
+        <a class="btn2 btn-outline2" href="http://www.le.com/" rel="nofollow" target="_blank">进入乐视视频</a>
+        <a class="btn2 btn-outline2" href="http://www.iqiyi.com/" rel="nofollow" target="_blank">进入奇艺视频</a>
+        <a class="btn2 btn-outline2" href="http://www.mgtv.com/" rel="nofollow" target="_blank">进入芒果视频</a>
+       <br>
+		    <a class="btn2 btn-outline2" href="http://v.qq.com/" rel="nofollow" target="_blank">进入腾讯视频</a>		
+        <a class="btn2 btn-outline2" href="http://www.youku.com/" rel="nofollow" target="_blank">进入优酷视频</a>
+		    <a class="btn2 btn-outline2" href="http://tv.sohu.com/" rel="nofollow" target="_blank">进入搜狐视频</a>
+		    <a class="btn2 btn-outline2" href="http://www.pptv.com/" rel="nofollow" target="_blank">进入pptv视频</a>
+  </div>
+
+</div><table class="table table-bordered">
+
+	<tbody>
+	   
+		<tr>
+   
+		</tr>
+      </tbody>
+	  <!--换行-->
+          </table>
+		
+
+</div></td>
+		</tr>
+      </tbody>
+	  </table>
+<div id="coin" class="coin"><script>var Coin = true;</script></div>
+
+
+<!--底部开始-->
+<div class="panel-body" style="text-align: center;">
+
+ <div class="container-fluid">
+ </button> 
+<script type="text/javascript" src="js/19670051.js"></script>
+
+</div>
+</div></div>
+
+
+</body></html>
